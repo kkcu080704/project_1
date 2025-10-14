@@ -61,8 +61,6 @@ flutter:
   assets:
     - assets/images/profile.png
     - assets/images/background.png
-    - assets/images/azriel_p.jpg
-    - assets/images/azriel_b.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
