@@ -1,65 +1,79 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TugasWidget extends StatelessWidget {
   const TugasWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Widget Kompleks Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true,
-      ),
-      home: const WidgetKompleks(),
-    );
-  }
-}
-
-class WidgetKompleks extends StatelessWidget {
-  const WidgetKompleks({super.key});
-
-
   final List<Map<String, String>> daftarMahasiswa = const [
     {
-      'nama': 'Alamsyah Firdaus',
+      'nama': 'Ambiya Rayana Maulidan',
+      'jurusan': 'Pendidikan Teknologi Informasi',
+      'nim': 'C2383207014'
+    },
+    {
+      'nama': 'Azriel Putra Pertama',
       'jurusan': 'Teknik Informatika',
-      'npm': '2110010123'
+      'nim': 'C2383207011'
     },
     {
-      'nama': 'Budi Santoso',
-      'jurusan': 'Sistem Informasi',
-      'npm': '2110010124'
-    },
-    {
-      'nama': 'Citra Dewi',
+      'nama': 'Deri Hoerun Nasar',
       'jurusan': 'Teknik Komputer',
-      'npm': '2110010125'
+      'nim': 'C2383207004'
     },
     {
-      'nama': 'Dian Pratama',
-      'jurusan': 'Teknik Informatika',
-      'npm': '2110010126'
+      'nama': 'Rijal Rizki Fauzi',
+      'jurusan': 'Pendidikan Teknologi Informasi',
+      'nim': 'C2383207009'
     },
     {
-      'nama': 'Eka Putri',
+      'nama': 'Ranji Kurnia',
       'jurusan': 'Sistem Informasi',
-      'npm': '2110010127'
+      'nim': 'C2383207010'
     },
   ];
 
 
-  final List<Map<String, dynamic>> daftarProduk = const [
-    {'nama': 'Laptop', 'icon': Icons.laptop, 'warna': Colors.blue},
-    {'nama': 'Smartphone', 'icon': Icons.smartphone, 'warna': Colors.green},
-    {'nama': 'Tablet', 'icon': Icons.tablet, 'warna': Colors.orange},
-    {'nama': 'Headphone', 'icon': Icons.headphones, 'warna': Colors.purple},
-    {'nama': 'Keyboard', 'icon': Icons.keyboard, 'warna': Colors.red},
-    {'nama': 'Mouse', 'icon': Icons.mouse, 'warna': Colors.teal},
+ final List<Map<String, dynamic>> daftarProduk = const [
+    {
+      'nama': 'Laptop',
+      'icon': Icons.laptop,
+      'warna': Colors.blue,
+      'gambar': 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400'
+    },
+    {
+      'nama': 'Smartphone',
+      'icon': Icons.smartphone,
+      'warna': Colors.green,
+      'gambar': 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400'
+    },
+    {
+      'nama': 'Tablet',
+      'icon': Icons.tablet,
+      'warna': Colors.orange,
+      'gambar': 'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=400'
+    },
+    {
+      'nama': 'Headphone',
+      'icon': Icons.headphones,
+      'warna': Colors.purple,
+      'gambar': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'
+    },
+    {
+      'nama': 'Keyboard',
+      'icon': Icons.keyboard,
+      'warna': Colors.red,
+      'gambar': 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400'
+    },
+    {
+      'nama': 'Mouse',
+      'icon': Icons.mouse,
+      'warna': Colors.teal,
+      'gambar': 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400'
+    },
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +143,7 @@ class WidgetKompleks extends StatelessWidget {
         return Card(
           elevation: 3,
           margin: const EdgeInsets.only(bottom: 12),
+          color: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -162,7 +177,7 @@ class WidgetKompleks extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(mahasiswa['jurusan']!),
                 Text(
-                  'NPM: ${mahasiswa['npm']}',
+                  'NIM: ${mahasiswa['nim']}',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey[600],
@@ -234,10 +249,41 @@ class WidgetKompleks extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  produk['icon'] as IconData,
-                  size: 48,
-                  color: produk['warna'] as Color,
+
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    produk['gambar'] as String,
+                    width: 100,
+                    height: 80,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return SizedBox(
+                        width: 100,
+                        height: 80,
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 100,
+                        height: 80,
+                        color: (produk['warna'] as Color).withOpacity(0.08),
+                        child: Icon(
+                          produk['icon'] as IconData,
+                          size: 40,
+                          color: produk['warna'] as Color,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -268,6 +314,7 @@ class WidgetKompleks extends StatelessWidget {
   Widget _buildInfoCard(BuildContext context) {
     return Card(
       elevation: 4,
+      color: Colors.teal[50],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -293,14 +340,14 @@ class WidgetKompleks extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.teal.withOpacity(0.1),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
-                      Icons.info_outline,
-                      size: 32,
-                      color: Colors.teal,
-                    ),
+                    child: Image.asset(
+                      'assets/images/profile.png',
+                      width: 80,
+                      height: 80,
+                    )
                   ),
                   const SizedBox(width: 16),
                   const Expanded(
@@ -308,7 +355,7 @@ class WidgetKompleks extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Pemrograman Mobile',
+                          'Ambiya Rayana Maulidan',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -316,7 +363,7 @@ class WidgetKompleks extends StatelessWidget {
                         ),
                         SizedBox(height: 4),
                         Text(
-                          'Tugas Mandiri 4',
+                          'Si Ganteng Kalem',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey,
@@ -334,19 +381,19 @@ class WidgetKompleks extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildInfoItem(
-                    Icons.widgets,
-                    'Widget Kompleks',
-                    Colors.blue,
-                  ),
-                  _buildInfoItem(
-                    Icons.code,
-                    'Flutter',
+                    FontAwesomeIcons.whatsapp,
+                    'WhatsApp',
                     Colors.green,
                   ),
                   _buildInfoItem(
-                    Icons.school,
-                    'Praktikum',
-                    Colors.orange,
+                    FontAwesomeIcons.github,
+                    'GitHub',
+                    Colors.blueGrey,
+                  ),
+                  _buildInfoItem(
+                    FontAwesomeIcons.school,
+                    'UMTAS',
+                    Colors.blueAccent,
                   ),
                 ],
               ),
