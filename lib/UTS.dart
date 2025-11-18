@@ -36,7 +36,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Header
             Text(
               'Data Pengguna',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -45,8 +44,6 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
-
-            // Card untuk menampilkan data
             if (nama != null && email != null && umur != null)
               Card(
                 elevation: 4,
@@ -139,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Silakan isi form untuk menambah data',
+                        'Silahkan isi form untuk menambah data',
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -152,19 +149,14 @@ class _HomePageState extends State<HomePage> {
               ),
 
             const SizedBox(height: 24),
-
-            // Tombol untuk ke halaman form
             ElevatedButton(
               onPressed: () async {
-                // Navigasi ke FormPage dan menunggu hasil
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const FormPage(),
                   ),
                 );
-
-                // Update state jika ada data yang dikembalikan
                 if (result != null && result is Map<String, dynamic>) {
                   setState(() {
                     nama = result['nama'];
@@ -199,8 +191,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// HALAMAN 2: FormPage - Form input data pengguna
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
 
@@ -223,9 +213,7 @@ class _FormPageState extends State<FormPage> {
   }
 
   void _submitForm() {
-    // Validasi form
     if (_formKey.currentState!.validate()) {
-      // Jika valid, kembalikan data ke HomePage
       final data = {
         'nama': _namaController.text,
         'email': _emailController.text,
@@ -252,22 +240,18 @@ class _FormPageState extends State<FormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Header
               Text(
                 'Silakan isi form di bawah ini',
                 style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
-
-              // Card untuk form
               Card(
                 elevation: 4,
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
-                      // Input Nama
                       TextFormField(
                         controller: _namaController,
                         decoration: const InputDecoration(
@@ -284,8 +268,6 @@ class _FormPageState extends State<FormPage> {
                         },
                       ),
                       const SizedBox(height: 16),
-
-                      // Input Email
                       TextFormField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -306,8 +288,6 @@ class _FormPageState extends State<FormPage> {
                         },
                       ),
                       const SizedBox(height: 16),
-
-                      // Input Umur
                       TextFormField(
                         controller: _umurController,
                         keyboardType: TextInputType.number,
@@ -338,8 +318,6 @@ class _FormPageState extends State<FormPage> {
               ),
 
               const SizedBox(height: 24),
-
-              // Tombol Submit
               ElevatedButton(
                 onPressed: _submitForm,
                 style: ElevatedButton.styleFrom(
@@ -364,8 +342,6 @@ class _FormPageState extends State<FormPage> {
               ),
 
               const SizedBox(height: 12),
-
-              // Tombol Batal
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
