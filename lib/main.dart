@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_1/tugas_navigasi.dart';
-
+import 'package:project_1/UTS.dart';
 
 
 
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFE4405F)),
         useMaterial3: true,
       ),
-      home: TugasNavigasi()
+      home:UTS()
     );
   }
 }
